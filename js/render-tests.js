@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const body = document.createElement('div');
     body.className = 'play-card-body';
 
+    const badge = document.createElement('span');
+    badge.className = 'play-card-badge';
+    badge.textContent = '심리테스트';
+
     const title = document.createElement('h3');
     title.className = 'play-card-title';
     title.textContent = test.name;
-
-    const desc = document.createElement('p');
-    desc.className = 'play-card-desc';
-    desc.textContent = test.desc;
 
     const meta = document.createElement('p');
     meta.className = 'play-card-meta';
@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', function () {
     skeleton.className = 'skeleton';
     participants.appendChild(skeleton);
 
+    body.appendChild(badge);
     body.appendChild(title);
-    body.appendChild(desc);
     body.appendChild(meta);
     body.appendChild(participants);
 
