@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>예밍아놀자</title>
-  <link rel="icon" href="/assets/favicon.png">
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -18,7 +18,25 @@
     </div>
   </header>
 
-  <h1>예밍아놀자 - 준비중</h1>
+  <section class="play-hero">
+    <div class="container">
+      <img class="play-hero-img"
+           src="/images/hero-character.png"
+           alt="예밍이 캐릭터"
+           width="400" height="400"
+           fetchpriority="high">
+      <div class="play-hero-text">
+        <h1 class="play-hero-title">어? 너 이거 해봤어?</h1>
+        <p class="play-hero-desc">예밍이가 준비한 심리테스트, <span class="nowrap">골라서 해봐!</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="play-grid" id="testGrid"></div>
+    </div>
+  </section>
 
   <footer class="play-footer">
     <div class="container">
@@ -29,6 +47,9 @@
     </div>
   </footer>
 
+  <script src="/js/tests-data.js" defer></script>
+  <script src="/js/participants.js" defer></script>
+  <script src="/js/render-tests.js" defer></script>
   <script src="/js/header.js" defer></script>
 </body>
 </html>
