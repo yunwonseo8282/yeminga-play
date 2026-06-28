@@ -465,3 +465,53 @@ a:hover {
   font-weight: 700;
   text-align: left;
 }
+
+/* ============================================================
+   개인정보처리방침
+   ============================================================ */
+.privacy-wrap {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-8);
+}
+
+.privacy-title {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  margin: 0 0 var(--space-3);
+  color: var(--color-text);
+}
+
+.privacy-intro {
+  font-size: var(--fs-sm);
+  color: var(--color-text-soft);
+  margin: 0 0 var(--space-7);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.privacy-section {
+  margin-bottom: var(--space-6);
+}
+
+.privacy-section h2 {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin: 0 0 var(--space-3);
+}
+
+.privacy-section p,
+.privacy-section ul {
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  margin: 0 0 var(--space-3);
+  line-height: 1.8;
+}
+
+.privacy-section ul {
+  padding-left: var(--space-5);
+}
+
+.privacy-section li {
+  margin-bottom: var(--space-1);
+}
