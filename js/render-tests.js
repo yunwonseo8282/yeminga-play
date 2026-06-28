@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const grid = document.getElementById('testGrid');
   if (!grid || !Array.isArray(window.TESTS)) return;
 
-  window.TESTS.forEach(function (test, index) {
+  window.TESTS.forEach(async function (test, index) {
     // 카드 전체 링크
     const card = document.createElement('a');
     card.className = 'play-card';
@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     card.appendChild(body);
     grid.appendChild(card);
 
-    // 참여자 수 채우기 (Firestore 교체 시 이 부분을 async/await 로 변경)
-    const count = window.getParticipantCount(test.id);
+    // 참여자 수 채우기 — 스켈레톤은 값이 올 때까지 유지됨
+    const count = await window.getParticipantCount(test.id);
     participants.textContent = count.toLocaleString() + '명 참여';
   });
 });
