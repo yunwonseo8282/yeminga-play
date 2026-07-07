@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MBUY 소비 유형 테스트 - 예밍아놀자</title>
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="play-header" id="playHeader">
+    <div class="container">
+      <a class="play-brand" href="/">
+        <img class="brand-logo" src="/assets/logo.png" alt="예밍아놀자">
+        <span>예밍아놀자</span>
+      </a>
+      <button class="play-login-btn" type="button" disabled>로그인</button>
+    </div>
+  </header>
+
+  <main class="container-narrow">
+
+    <!-- 인트로 화면 -->
+    <section id="test-intro" class="section">
+      <!-- JS(test-page.js)가 tests-data.js 데이터로 채움 -->
+    </section>
+
+    <!-- 질문 화면 -->
+    <section id="test-questions" class="section" hidden>
+      <div class="q-progress-area">
+        <button type="button" id="back-btn" class="back-btn" aria-label="이전 질문으로">&#8592;</button>
+        <div class="q-progress-inner">
+          <p id="progress-text" class="q-progress-text"></p>
+          <div class="q-progress-track">
+            <div id="progress-fill" class="q-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+      <p id="question-text" class="q-question-text"></p>
+      <div id="choices" class="q-choices"></div>
+    </section>
+
+  </main>
+
+  <!-- 광고 영역: 화면 전환 로직과 완전히 분리 -->
+  <!-- AD:DISPLAY-TEST-01 -->
+  <div id="ad-display-test-01" style="min-height:250px;"></div>
+
+  <footer class="play-footer">
+    <div class="container">
+      <nav class="play-footer-nav">
+        <a href="/privacy.html">개인정보처리방침</a>
+      </nav>
+      <p class="play-footer-copy">© 2026 예밍아놀자</p>
+    </div>
+  </footer>
+
+  <script src="/js/tests-data.js" defer></script>
+  <script src="/js/questions-spending-type.js" defer></script>
+  <script src="/js/test-page.js" defer></script>
+  <script src="/js/header.js" defer></script>
+</body>
+</html>
