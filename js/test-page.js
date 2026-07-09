@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
           saveProgress(nextIdx, answers);
           setTimeout(function () {
             clearProgress();
-            showLoading();
+            showLoading(answers.slice()); // 완료 시점 답변 복사본 전달
             isAnimating = false;
           }, 250);
           return;
@@ -203,9 +203,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // ── 로딩 화면 ────────────────────────────────────────────────
+  // ── 로딩 화면 + 채점 + 결과 페이지 이동 ────────────────────
 
-  function showLoading() {
+  function showLoading(finalAnswers) {
     questions.hidden = true;
     var loading = document.getElementById('test-loading');
     if (!loading) {
@@ -218,6 +218,24 @@ document.addEventListener('DOMContentLoaded', function () {
       questions.parentNode.appendChild(loading);
     }
     loading.hidden = false;
+
+    // 채점 — 로딩 연출(1.5초) 후 결과 페이지 이동
+    setTimeout(function () {
+      var scoreResult  = MBUYScoring.score(finalAnswers);
+      var matchResult  = MBUYScoring.matchType(scoreResult);
+
+      var typeCode     = matchResult.type.code;
+      var matchPercent = matchResult.matchPercent;
+
+      // 이동 전 진행 데이터 정리(이미 clearProgress() 호출됐지만 안전하게 한 번 더)
+      clearProgress();
+
+      var url = '/result/spending-type.html'
+        + '?type=' + encodeURIComponent(typeCode)
+        + '&p='    + encodeURIComponent(matchPercent);
+
+      window.location.href = url;
+    }, 1500);
   }
 
   // ── 시작하기 / 이어서 풀기 클릭 ─────────────────────────────
