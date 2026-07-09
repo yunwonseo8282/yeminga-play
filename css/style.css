@@ -1999,3 +1999,40 @@ a:hover {
   border-radius: var(--radius-pill);
   text-align: center;
 }
+
+/* ============================================================
+   결과 페이지 — 공유 액션 버튼
+   ============================================================ */
+.result-actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  margin: calc(-1 * var(--space-2)) auto var(--space-6);
+  max-width: 340px;
+}
+
+.result-action-btn {
+  flex: 0 1 auto;
+  min-width: 140px;
+  font-size: var(--fs-sm);
+}
+
+/* ============================================================
+   결과 페이지 — 본문 영역 여백
+   ============================================================ */
+.result-summary,
+.result-report,
+.result-unlock {
+  max-width: 600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.result-summary,
+.result-report {
+  text-align: left;
+}

@@ -34,13 +34,18 @@
   function renderResult(data) {
     root.innerHTML =
       buildCard(data)
+      + buildActions()
       + buildSummary(data.summary)
       + buildUnlock()
       + buildReport(data.sections);
 
-    /* 이미지 onerror 처리 */
+    setupActions();
+
+    /* 캐릭터 이미지 — crossOrigin을 src보다 먼저 설정 */
     var img = document.getElementById('rImg');
     if (img) {
+      img.crossOrigin = 'anonymous';
+      img.src = '/images/results/spending-type/' + fileName + '.png';
       img.onerror = function () {
         var wrap = document.getElementById('rImgWrap');
         if (wrap) wrap.hidden = true;
@@ -95,7 +100,7 @@
       + '<p class="rc-nickname">' + esc(data.nickname) + '</p>'
       + '<div class="rc-img-wrap" id="rImgWrap">'
       +   '<img class="rc-img" id="rImg"'
-      +     ' src="/images/results/spending-type/' + esc(fileName) + '.png"'
+      +     ' crossorigin="anonymous"'
       +     ' alt="' + esc(data.code) + '" width="240" height="240">'
       + '</div>'
       + '<blockquote class="rc-quote">' + esc(data.quote) + '</blockquote>'
@@ -112,7 +117,34 @@
       + '</div>';
   }
 
-  /* ── (B) 요약 ─────────────────────────────────── */
+  /* ── (B) 공유 액션 버튼 ───────────────────────── */
+  function buildActions() {
+    return '<div class="result-actions">'
+      + '<button type="button" class="btn btn--secondary btn--sm result-action-btn" id="rCopyLinkBtn">🔗 링크 복사</button>'
+      + '</div>';
+  }
+
+  function setupActions() {
+    var copyBtn = document.getElementById('rCopyLinkBtn');
+
+    if (copyBtn) {
+      var originalText = copyBtn.textContent;
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(location.href)
+          .then(function () {
+            copyBtn.textContent = '복사됨!';
+            setTimeout(function () {
+              copyBtn.textContent = originalText;
+            }, 2000);
+          })
+          .catch(function (err) {
+            console.error('링크 복사 실패:', err);
+          });
+      });
+    }
+  }
+
+  /* ── (C) 요약 ─────────────────────────────────── */
   function buildSummary(text) {
     var paras = text.split('\n\n').map(function (para) {
       return '<p>' + inlineFmt(para) + '</p>';
@@ -120,7 +152,7 @@
     return '<section class="result-summary">' + paras.join('') + '</section>';
   }
 
-  /* ── (C) 잠금 해제 버튼 ───────────────────────── */
+  /* ── (D) 잠금 해제 버튼 ───────────────────────── */
   function buildUnlock() {
     return '<div class="result-unlock" id="rUnlock">'
       + '<button class="btn btn--primary btn--lg" id="rUnlockBtn">'
@@ -130,7 +162,7 @@
       + '</div>';
   }
 
-  /* ── (D) 심층 리포트 아코디언 ─────────────────── */
+  /* ── (E) 심층 리포트 아코디언 ─────────────────── */
   function buildReport(sections) {
     var items = sections.map(function (sec) {
       return '<div class="accordion-item">'
