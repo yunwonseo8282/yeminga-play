@@ -19,9 +19,12 @@
   </header>
 
   <main class="container-narrow section">
-    <!-- 임시 확인용: 정식 결과 UI 는 Step 6~7 에서 구현 -->
-    <h1 id="result-code"></h1>
-    <p id="result-percent"></p>
+    <div id="result-root">
+      <div class="test-loading">
+        <div class="test-loading-spinner"></div>
+        <p class="test-loading-text">결과를 불러오는 중…</p>
+      </div>
+    </div>
   </main>
 
   <footer class="play-footer">
@@ -34,14 +37,6 @@
   </footer>
 
   <script src="/js/header.js" defer></script>
-  <script>
-    (function () {
-      var params  = new URLSearchParams(location.search);
-      var code    = params.get('type');
-      var percent = params.get('p');
-      document.getElementById('result-code').textContent    = code    ? decodeURIComponent(code) : '(유형 없음)';
-      document.getElementById('result-percent').textContent = percent ? percent + '%'             : '';
-    })();
-  </script>
+  <script src="/js/result-page.js" defer></script>
 </body>
 </html>
