@@ -5,6 +5,8 @@
   var typeCode = params.get('type') || '';
   var percent  = params.get('p')    || '';
   var root     = document.getElementById('result-root');
+  var cardRoot = document.getElementById('result-card-root');
+  var matchHint = document.querySelector('.result-match-hint');
 
   if (!typeCode) {
     showError();
@@ -23,18 +25,23 @@
 
   /* ── 에러 ─────────────────────────────────────── */
   function showError() {
-    root.innerHTML =
-      '<div class="result-error-state">'
-      + '<p>결과를 불러올 수 없어요</p>'
-      + '<a class="btn btn--secondary btn--sm" href="/">처음으로 돌아가기</a>'
-      + '</div>';
+    if (matchHint) matchHint.hidden = true;
+    if (cardRoot) {
+      cardRoot.innerHTML =
+        '<div class="result-error-state">'
+        + '<p>결과를 불러올 수 없어요</p>'
+        + '<a class="btn btn--secondary btn--sm" href="/">처음으로 돌아가기</a>'
+        + '</div>';
+    }
+    if (root) root.innerHTML = '';
   }
 
   /* ── 메인 렌더 ────────────────────────────────── */
   function renderResult(data) {
+    if (matchHint) matchHint.hidden = false;
+    if (cardRoot) cardRoot.innerHTML = buildCard(data);
     root.innerHTML =
-      buildCard(data)
-      + buildActions()
+      buildActions()
       + buildSummary(data.summary)
       + buildUnlock()
       + buildReport(data.sections);

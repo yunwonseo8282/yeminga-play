@@ -1476,7 +1476,7 @@ a:hover {
 /* ── 일치도 %: SSR은 진한 남색으로 확 튀게 ──────── */
 .card-tier-SSR .rc-match,
 .card-tier-SSR .rc-match strong {
-  color: #1a237e;
+  color: #222;
   text-shadow: none;
 }
 
@@ -1949,7 +1949,7 @@ a:hover {
 .card-tier-SR .rc-match,
 .card-tier-R .rc-match,
 .card-tier-N .rc-match {
-  color: #1a237e;
+  color: #222;
   font-size: var(--fs-sm);
   font-weight: 600;
   text-shadow: none;
@@ -1963,7 +1963,7 @@ a:hover {
   -webkit-background-clip: border-box;
   -webkit-text-fill-color: currentColor;
   background-clip: border-box;
-  color: #1a237e;
+  color: #222;
   font-size: 1.65rem;
   font-weight: 800;
   text-shadow: none;
@@ -2051,12 +2051,61 @@ a:hover {
   background: none !important;
   -webkit-background-clip: border-box !important;
   background-clip: border-box !important;
-  -webkit-text-fill-color: #1a237e !important;
-  color: #1a237e !important;
+  -webkit-text-fill-color: #222 !important;
+  color: #222 !important;
   text-shadow: none !important;
   filter: none !important;
 }
 
 .rc-quote {
   white-space: pre-line;
+}
+
+/* ============================================================
+   결과 페이지 — 일치도 설명 문구
+   ============================================================ */
+.result-match-hint {
+  margin: var(--space-3) auto var(--space-4);
+  padding: 0 20px;
+  max-width: 340px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #888;
+  text-align: center;
+}
+
+/* ============================================================
+   수집 카드 — N 티어 웜 그레이 리파인
+   ============================================================ */
+.card-tier-N {
+  border: 3px solid transparent;
+  background:
+    linear-gradient(165deg, #f5f3f0 0%, #f1eee9 38%, #ece8e2 68%, #e8e4de 100%) padding-box,
+    linear-gradient(145deg, #f2ede6, #e0d9cf, #ccc4b8, #b8afa3, #ccc4b8, #e0d9cf, #f2ede6) border-box;
+  animation: none;
+  box-shadow:
+    0 0 0 1px rgba(190,180,165,0.20),
+    0 4px 18px rgba(130,120,105,0.10),
+    0 8px 26px rgba(110,100,90,0.08);
+}
+
+.card-tier-N .rc-tier-badge {
+  background: linear-gradient(135deg, #faf8f5, #e8e2d8, #cfc6ba, #b8aea2);
+  color: #4a443c;
+  box-shadow: 0 2px 6px rgba(120,110,95,0.20), inset 0 1px 0 rgba(255,255,255,0.55);
+  font-weight: 800;
+}
+
+.card-tier-N .rc-img-wrap {
+  border-color: rgba(185,175,160,0.38);
+  box-shadow: 0 4px 14px rgba(120,110,95,0.10);
+}
+
+.card-tier-N .rc-tag {
+  border: 1px solid rgba(185,175,160,0.35);
+  box-shadow: 0 1px 3px rgba(120,110,95,0.06);
+}
+
+.card-tier-N .rc-progress-fill {
+  background: linear-gradient(90deg, #b0a698, #ccc4b8, #e0d9cf);
 }
