@@ -2109,3 +2109,35 @@ a:hover {
 .card-tier-N .rc-progress-fill {
   background: linear-gradient(90deg, #b0a698, #ccc4b8, #e0d9cf);
 }
+
+/* ============================================================
+   상세 리포트 페이지
+   ============================================================ */
+.result-detail-back {
+  margin: 0 0 var(--space-5);
+  text-align: left;
+}
+.result-detail-back a {
+  color: var(--color-text-soft);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+.result-detail-back a:hover {
+  color: var(--color-primary);
+}
+.result-detail-header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+.result-detail-code {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: var(--color-text);
+}
+.result-detail-nickname {
+  margin: var(--space-2) 0 0;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--color-text-soft);
+}
