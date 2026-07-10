@@ -2036,3 +2036,27 @@ a:hover {
 .result-report {
   text-align: left;
 }
+
+/* ============================================================
+   수집 카드 — 일치도 색 통일 + 명언 줄바꿈
+   ============================================================ */
+.card-tier-SSR .rc-match,
+.card-tier-SR .rc-match,
+.card-tier-R .rc-match,
+.card-tier-N .rc-match,
+.card-tier-SSR .rc-match strong,
+.card-tier-SR .rc-match strong,
+.card-tier-R .rc-match strong,
+.card-tier-N .rc-match strong {
+  background: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  -webkit-text-fill-color: #1a237e !important;
+  color: #1a237e !important;
+  text-shadow: none !important;
+  filter: none !important;
+}
+
+.rc-quote {
+  white-space: pre-line;
+}
