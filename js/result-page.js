@@ -45,7 +45,7 @@
       + buildSummary(data.summary)
       + buildDetailLink();
 
-    setupActions();
+    setupActions(data);
 
     /* 캐릭터 이미지 — crossOrigin을 src보다 먼저 설정 */
     var img = document.getElementById('rImg');
@@ -100,11 +100,47 @@
   /* ── (B) 공유 액션 버튼 ───────────────────────── */
   function buildActions() {
     return '<div class="result-actions">'
+      + '<button type="button" class="btn btn--secondary btn--sm result-action-btn" id="rKakaoShareBtn">💬 카카오톡 공유</button>'
       + '<button type="button" class="btn btn--secondary btn--sm result-action-btn" id="rCopyLinkBtn">🔗 링크 복사</button>'
       + '</div>';
   }
 
-  function setupActions() {
+  function setupActions(data) {
+    var shareUrl = 'https://test.yeminga.com/result/spending-type.html?type='
+      + encodeURIComponent(typeCode) + '&p=' + encodeURIComponent(percent);
+    var imageUrl = 'https://test.yeminga.com/images/results/spending-type/' + fileName + '.png';
+
+    var kakaoBtn = document.getElementById('rKakaoShareBtn');
+    if (kakaoBtn) {
+      kakaoBtn.addEventListener('click', function () {
+        if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+          console.warn('Kakao SDK가 초기화되지 않았습니다.');
+          return;
+        }
+        Kakao.Share.sendDefault({
+          objectType: 'feed',
+          content: {
+            title: data.nickname + ' (' + data.code + ')',
+            description: (data.quote || '').replace(/\n/g, ' '),
+            imageUrl: imageUrl,
+            link: {
+              mobileWebUrl: shareUrl,
+              webUrl: shareUrl
+            }
+          },
+          buttons: [
+            {
+              title: '내 소비 유형 보기',
+              link: {
+                mobileWebUrl: shareUrl,
+                webUrl: shareUrl
+              }
+            }
+          ]
+        });
+      });
+    }
+
     var copyBtn = document.getElementById('rCopyLinkBtn');
 
     if (copyBtn) {
