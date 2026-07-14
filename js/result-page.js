@@ -108,6 +108,7 @@
   function setupActions(data) {
     var shareUrl = 'https://test.yeminga.com/result/spending-type.html?type='
       + encodeURIComponent(typeCode) + '&p=' + encodeURIComponent(percent);
+    var testUrl = 'https://test.yeminga.com/test/spending-type';
     var imageUrl = 'https://test.yeminga.com/images/results/spending-type/' + fileName + '.png';
 
     var kakaoBtn = document.getElementById('rKakaoShareBtn');
@@ -120,8 +121,8 @@
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
-            title: data.nickname + ' (' + data.code + ')',
-            description: (data.quote || '').replace(/\n/g, ' '),
+            title: '나의 소비 유형은?',
+            description: data.nickname + ' (' + data.code + ')',
             imageUrl: imageUrl,
             link: {
               mobileWebUrl: shareUrl,
@@ -130,10 +131,17 @@
           },
           buttons: [
             {
-              title: '내 소비 유형 보기',
+              title: '친구 결과 보기',
               link: {
                 mobileWebUrl: shareUrl,
                 webUrl: shareUrl
+              }
+            },
+            {
+              title: '나도 테스트하기',
+              link: {
+                mobileWebUrl: testUrl,
+                webUrl: testUrl
               }
             }
           ]
