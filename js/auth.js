@@ -1,5 +1,6 @@
 import { auth } from '/js/firebase-init.js';
 import { handleInAppBrowser } from '/js/inapp-browser.js';
+import { saveResultFromUrl } from '/js/results-store.js';
 import {
   GoogleAuthProvider,
   signInWithRedirect,
@@ -15,6 +16,7 @@ let loginWrap = null;
 let accountMenu = null;
 let clickHandler = null;
 let outsideClickHandler = null;
+let savedOnce = false;
 
 function ensureMenuDom() {
   if (!loginBtn || loginWrap) return;
@@ -145,6 +147,10 @@ function setupAuthStateListener() {
     if (user && !user.isAnonymous) {
       console.log('로그인 상태:', user.displayName || user.email);
       bindLoggedIn(user);
+      if (!savedOnce) {
+        savedOnce = true;
+        saveResultFromUrl();
+      }
     } else {
       if (user && user.isAnonymous) {
         console.log('익명 세션:', user.uid);

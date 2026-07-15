@@ -96,3 +96,27 @@ export async function saveResult(testId, resultData) {
     console.error('결과 저장 실패:', e.code || e.message, e.message);
   }
 }
+
+/**
+ * 결과 페이지 URL의 type/p 파라미터를 읽어 로그인 계정에 저장.
+ * 외부 브라우저 전환 후 로그인 시 익명 uid 유실 보완용.
+ */
+export async function saveResultFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const typeCode = params.get('type') || '';
+  const percent = params.get('p') || '';
+
+  const isResultPage =
+    location.pathname.indexOf('/result/') !== -1 || params.has('type');
+  if (!isResultPage || !typeCode) return;
+
+  const testId = 'spending-type';
+
+  try {
+    console.log('URL 결과 재저장 시작:', testId, typeCode, percent);
+    await saveResult(testId, { typeCode: typeCode, percent: percent });
+    console.log('URL 결과 재저장 완료:', testId, typeCode, percent);
+  } catch (e) {
+    console.error('URL 결과 재저장 실패:', e.code || e.message, e.message);
+  }
+}
