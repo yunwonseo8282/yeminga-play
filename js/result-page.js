@@ -1,3 +1,5 @@
+import { saveResult } from '/js/results-store.js';
+
 (function () {
   'use strict';
 
@@ -37,7 +39,7 @@
   }
 
   /* ── 메인 렌더 ────────────────────────────────── */
-  function renderResult(data) {
+  async function renderResult(data) {
     if (matchHint) matchHint.hidden = false;
     if (cardRoot) cardRoot.innerHTML = buildCard(data);
     root.innerHTML =
@@ -58,6 +60,7 @@
       };
     }
 
+    await saveResult('spending-type', { typeCode: typeCode, percent: percent });
   }
 
   /* ── (A) 수집 카드 (티어별) ──────────────────── */
