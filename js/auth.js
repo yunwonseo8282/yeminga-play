@@ -113,6 +113,7 @@ function bindLoggedOut() {
   loginBtn.disabled = false;
   loginBtn.setAttribute('aria-expanded', 'false');
   setClickHandler(function () {
+    if (handleInAppBrowser()) return;
     signInWithGoogle();
   });
 }
