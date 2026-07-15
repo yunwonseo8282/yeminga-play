@@ -4,7 +4,7 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/12.15.0/firebas
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOwDbqvyezs4DTLNeOQDLdr_SwcfK20KY",
-  authDomain: "yeminga-play.firebaseapp.com",
+  authDomain: "test.yeminga.com",
   projectId: "yeminga-play",
   storageBucket: "yeminga-play.firebasestorage.app",
   messagingSenderId: "548522537082",
