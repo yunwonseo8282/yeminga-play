@@ -1,4 +1,5 @@
 import { auth } from '/js/firebase-init.js';
+import { handleInAppBrowser } from '/js/inapp-browser.js';
 import {
   GoogleAuthProvider,
   signInWithRedirect,
@@ -86,6 +87,7 @@ function setClickHandler(handler) {
 }
 
 async function signInWithGoogle() {
+  if (handleInAppBrowser()) return;
   const provider = new GoogleAuthProvider();
   const user = auth.currentUser;
 

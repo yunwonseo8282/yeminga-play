@@ -5,6 +5,7 @@ import {
   onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
 import { getMyResults } from '/js/results-store.js';
+import { handleInAppBrowser } from '/js/inapp-browser.js';
 
 (function () {
   'use strict';
@@ -23,6 +24,7 @@ import { getMyResults } from '/js/results-store.js';
 
   if (loginBtn) {
     loginBtn.addEventListener('click', async function () {
+      if (handleInAppBrowser()) return;
       try {
         var result = await signInWithPopup(auth, new GoogleAuthProvider());
         console.log('로그인 성공:', result.user.displayName || result.user.email);
