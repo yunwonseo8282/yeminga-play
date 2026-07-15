@@ -1,3 +1,5 @@
+import { incrementParticipant } from '/js/participants.js';
+
 document.addEventListener('DOMContentLoaded', function () {
   var TEST_ID = 'spending-type';
   var STORAGE_KEY = 'mbuy-spending-type-progress';
@@ -243,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
   startBtn.addEventListener('click', function () {
     intro.hidden = true;
     questions.hidden = false;
+    incrementParticipant('spending-type');
     updateProgress(currentIdx);
     renderQuestion(currentIdx);
   });

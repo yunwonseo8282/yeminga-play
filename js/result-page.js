@@ -1,4 +1,5 @@
 import { saveResult } from '/js/results-store.js';
+import { incrementCompleted } from '/js/participants.js';
 
 (function () {
   'use strict';
@@ -61,6 +62,7 @@ import { saveResult } from '/js/results-store.js';
     }
 
     await saveResult('spending-type', { typeCode: typeCode, percent: percent });
+    await incrementCompleted('spending-type');
   }
 
   /* ── (A) 수집 카드 (티어별) ──────────────────── */
