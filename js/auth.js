@@ -1,7 +1,10 @@
 import { auth } from '/js/firebase-init.js';
 import {
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
+  linkWithRedirect,
+  getRedirectResult,
+  signInAnonymously,
   signOut,
   onAuthStateChanged
 } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
@@ -83,11 +86,21 @@ function setClickHandler(handler) {
 }
 
 async function signInWithGoogle() {
+  const provider = new GoogleAuthProvider();
+  const user = auth.currentUser;
+
   try {
-    const result = await signInWithPopup(auth, new GoogleAuthProvider());
-    console.log('로그인 성공:', result.user.displayName || result.user.email);
+    if (user && user.isAnonymous) {
+      await linkWithRedirect(user, provider);
+    } else {
+      await signInWithRedirect(auth, provider);
+    }
   } catch (e) {
-    console.error('로그인 실패:', e.code || e.message, e.message);
+    if (user && user.isAnonymous) {
+      console.error('익명→구글 리디렉션 실패:', e.code || e.message, e.message);
+    } else {
+      console.error('로그인 리디렉션 실패:', e.code || e.message, e.message);
+    }
   }
 }
 
@@ -124,17 +137,53 @@ function bindLoggedIn(user) {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  loginBtn = document.querySelector('.play-login-btn');
-  if (!loginBtn) return;
-
+function setupAuthStateListener() {
   onAuthStateChanged(auth, function (user) {
-    if (user) {
+    if (user && !user.isAnonymous) {
       console.log('로그인 상태:', user.displayName || user.email);
       bindLoggedIn(user);
     } else {
-      console.log('로그아웃 상태');
+      if (user && user.isAnonymous) {
+        console.log('익명 세션:', user.uid);
+      } else {
+        console.log('로그아웃 상태');
+        signInAnonymously(auth)
+          .then(function (result) {
+            console.log('익명 로그인 성공:', result.user.uid);
+          })
+          .catch(function (e) {
+            console.error('익명 로그인 실패:', e.code || e.message, e.message);
+          });
+      }
       bindLoggedOut();
     }
   });
+}
+
+async function handleRedirectResult() {
+  try {
+    const result = await getRedirectResult(auth);
+    if (result) {
+      console.log('구글 연결/로그인 성공:', result.user.displayName || result.user.email);
+    }
+  } catch (e) {
+    if (e.code === 'auth/credential-already-in-use') {
+      console.log('이미 존재하는 구글 계정 → 기존 계정으로 로그인');
+      try {
+        await signInWithRedirect(auth, new GoogleAuthProvider());
+      } catch (e2) {
+        console.error('기존 계정 리디렉션 실패:', e2.code || e2.message, e2.message);
+      }
+      return;
+    }
+    console.error('구글 연결/로그인 실패:', e.code || e.message, e.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async function () {
+  loginBtn = document.querySelector('.play-login-btn');
+  if (!loginBtn) return;
+
+  await handleRedirectResult();
+  setupAuthStateListener();
 });

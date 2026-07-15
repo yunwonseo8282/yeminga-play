@@ -94,7 +94,7 @@ import { getMyResults } from '/js/results-store.js';
 
   async function render() {
     var user = await waitForAuthUser();
-    if (!user) {
+    if (!user || user.isAnonymous) {
       showPrompt();
       return;
     }
