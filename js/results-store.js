@@ -1,6 +1,12 @@
 import { db, auth } from '/js/firebase-init.js';
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
-import { doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  serverTimestamp
+} from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js';
 
 const AUTH_WAIT_MS = 5000;
 
@@ -33,6 +39,35 @@ function waitForAuthUser() {
       resolve(user);
     });
   });
+}
+
+/**
+ * 로그인 사용자의 저장된 테스트 결과 전체 조회.
+ * 비로그인 시 빈 배열 반환.
+ *
+ * @returns {Promise<Array<{ testId: string, typeCode: string, percent: string, createdAt: * }>>}
+ */
+export async function getMyResults() {
+  const user = await waitForAuthUser();
+  if (!user) return [];
+
+  try {
+    const snap = await getDocs(collection(db, 'users', user.uid, 'results'));
+    const results = snap.docs.map(function (docSnap) {
+      const data = docSnap.data();
+      return {
+        testId: data.testId,
+        typeCode: data.typeCode,
+        percent: data.percent,
+        createdAt: data.createdAt
+      };
+    });
+    console.log('결과 조회 성공:', results.length, '건');
+    return results;
+  } catch (e) {
+    console.error('결과 조회 실패:', e.code || e.message, e.message);
+    return [];
+  }
 }
 
 /**

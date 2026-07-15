@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 결과 보관함 - 예밍아놀자</title>
+  <meta name="description" content="예밍아놀자에 저장한 심리테스트 결과를 모아볼 수 있어요.">
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RL7MBR191"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5RL7MBR191');
+  </script>
+</head>
+<body>
+  <header class="play-header" id="playHeader">
+    <div class="container">
+      <a class="play-brand" href="/">
+        <img class="brand-logo" src="/assets/logo.png" alt="예밍아놀자">
+        <span>예밍아놀자</span>
+      </a>
+      <button class="play-login-btn" type="button" disabled>로그인</button>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container-narrow my-results-wrap">
+      <h1 class="my-results-title">내 결과 보관함</h1>
+      <p class="my-results-desc">로그인하고 완료한 테스트 결과가 여기에 쌓여!</p>
+
+      <div id="myResultsLoginPrompt" class="my-results-prompt" hidden>
+        <p>로그인하면 저장된 결과를 볼 수 있어!</p>
+        <button type="button" class="btn btn--primary btn--md" id="myResultsLoginBtn">로그인</button>
+      </div>
+
+      <div id="myResultsList" class="my-results-list"></div>
+    </div>
+  </main>
+
+  <footer class="play-footer">
+    <div class="container">
+      <nav class="play-footer-nav">
+        <a href="/privacy.html">개인정보처리방침</a>
+      </nav>
+      <p class="play-footer-copy">© 2026 예밍아놀자</p>
+    </div>
+  </footer>
+
+  <script src="/js/header.js" defer></script>
+  <script type="module" src="/js/firebase-init.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script type="module" src="/js/my-results.js"></script>
+</body>
+</html>
