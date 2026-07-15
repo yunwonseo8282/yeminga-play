@@ -34,10 +34,34 @@ function showExternalBrowserGuide() {
   overlay.innerHTML =
     '<div style="background:#fff;border-radius:16px;padding:28px 22px;max-width:320px;text-align:center;">' +
       '<p style="font-size:17px;font-weight:700;margin:0 0 12px;">잠깐! 여기선 로그인이 안 돼</p>' +
-      '<p style="font-size:14px;line-height:1.6;color:#555;margin:0 0 18px;">오른쪽 아래(또는 위) 메뉴 버튼을 눌러<br><b>\u2018다른 브라우저로 열기\u2019</b> 또는 <b>\u2018Safari로 열기\u2019</b>를<br>선택하면 로그인할 수 있어!</p>' +
-      '<button id="inapp-guide-close" style="background:#eee;border:none;border-radius:10px;padding:10px 20px;font-size:14px;cursor:pointer;">닫기</button>' +
+      '<p style="font-size:14px;line-height:1.6;color:#555;margin:0 0 20px;">지금 앱 안에 있는 브라우저라서 구글 로그인이 안 돼. 아래 버튼으로 링크를 복사한 다음, 크롬이나 사파리에서 붙여넣어 접속하면 로그인할 수 있어!</p>' +
+      '<div style="display:flex;flex-direction:column;gap:10px;">' +
+        '<button id="inapp-guide-copy" style="background:#a78bfa;color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;">링크 복사하기</button>' +
+        '<button id="inapp-guide-close" style="background:#eee;border:none;border-radius:10px;padding:10px 20px;font-size:14px;cursor:pointer;">닫기</button>' +
+      '</div>' +
     '</div>';
   document.body.appendChild(overlay);
+
+  const copyBtn = document.getElementById('inapp-guide-copy');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) {
+          throw new Error('clipboard unavailable');
+        }
+        navigator.clipboard.writeText(window.location.href)
+          .then(function () {
+            copyBtn.textContent = '복사됐어! 크롬/사파리에 붙여넣기 해줘';
+          })
+          .catch(function () {
+            copyBtn.textContent = '복사 실패 - 주소창을 길게 눌러 복사해줘';
+          });
+      } catch (e) {
+        copyBtn.textContent = '복사 실패 - 주소창을 길게 눌러 복사해줘';
+      }
+    });
+  }
+
   document.getElementById('inapp-guide-close').addEventListener('click', function () {
     overlay.remove();
   });
