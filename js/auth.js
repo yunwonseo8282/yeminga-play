@@ -213,7 +213,6 @@ function setupAuthStateListener() {
         saveResultFromUrl();
       }
     } else {
-      sessionStorage.removeItem(LOGIN_REDIRECTING_KEY);
       hideLoginOverlay();
       if (user && user.isAnonymous) {
         console.log('익명 세션:', user.uid);
