@@ -187,7 +187,7 @@ import { incrementCompleted } from '/js/participants.js';
             method: 'link_copy'
           });
         }
-        navigator.clipboard.writeText(location.href)
+        navigator.clipboard.writeText(shareUrl)
           .then(function () {
             copyBtn.textContent = '복사됨!';
             setTimeout(function () {
