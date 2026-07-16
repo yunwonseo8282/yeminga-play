@@ -1,5 +1,7 @@
 import { saveResult } from '/js/results-store.js';
 import { incrementCompleted } from '/js/participants.js';
+import { auth } from '/js/firebase-init.js';
+import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js';
 
 (function () {
   'use strict';
@@ -199,6 +201,23 @@ import { incrementCompleted } from '/js/participants.js';
           });
       });
     }
+
+    // 로그인 저장 안내 - 클릭 시 헤더 로그인 버튼 재사용
+    var loginSaveBtn = document.getElementById('rLoginSaveBtn');
+    if (loginSaveBtn) {
+      loginSaveBtn.addEventListener('click', function () {
+        var headerLoginBtn = document.querySelector('.play-login-btn');
+        if (headerLoginBtn) headerLoginBtn.click();
+      });
+    }
+
+    // 구글 로그인 상태면 안내 영역 숨김 (기본은 표시)
+    onAuthStateChanged(auth, function (user) {
+      if (user && !user.isAnonymous) {
+        var box = document.getElementById('rLoginSave');
+        if (box) box.style.display = 'none';
+      }
+    });
   }
 
   /* ── (C) 요약 ─────────────────────────────────── */
@@ -218,6 +237,10 @@ import { incrementCompleted } from '/js/participants.js';
       +   '🔓 상세 리포트 보기'
       + '</a>'
       + '<p class="result-unlock-note">현재 무료 오픈 중 (추후 유료 전환 예정)</p>'
+      + '</div>'
+      + '<div class="result-login-save" id="rLoginSave">'
+      + '<p class="result-login-save-text">💡 로그인하면 내 결과를 언제든 다시 볼 수 있어!</p>'
+      + '<button type="button" class="btn btn--secondary btn--sm" id="rLoginSaveBtn">🔒 로그인하기</button>'
       + '</div>';
   }
   /* ── 포매팅 헬퍼 ──────────────────────────────── */
