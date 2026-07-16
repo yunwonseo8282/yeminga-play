@@ -2363,3 +2363,12 @@ a:hover {
   justify-content: center;
   margin-top: var(--space-2);
 }
+
+/* 결과 페이지 - '나는 무슨 유형일까?' CTA 버튼 */
+.result-cta-btn {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 28px auto 36px;
+  text-align: center;
+}
