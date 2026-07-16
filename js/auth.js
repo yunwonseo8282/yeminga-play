@@ -17,6 +17,58 @@ let accountMenu = null;
 let clickHandler = null;
 let outsideClickHandler = null;
 let savedOnce = false;
+let overlayTimeoutId = null;
+
+const LOGIN_REDIRECTING_KEY = 'loginRedirecting';
+
+function showLoginOverlay() {
+  if (document.getElementById('login-overlay')) return;
+
+  if (!document.getElementById('login-overlay-style')) {
+    var style = document.createElement('style');
+    style.id = 'login-overlay-style';
+    style.textContent = '@keyframes login-overlay-spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+  }
+
+  var overlay = document.createElement('div');
+  overlay.id = 'login-overlay';
+  overlay.style.cssText =
+    'position:fixed;inset:0;z-index:9999;'
+    + 'background:rgba(253, 251, 255, 0.92);'
+    + 'backdrop-filter:blur(4px);'
+    + 'display:flex;flex-direction:column;align-items:center;justify-content:center;'
+    + 'font-family:\'NanumSquare Neo\', "Apple SD Gothic Neo", sans-serif;';
+
+  var spinner = document.createElement('div');
+  spinner.style.cssText =
+    'width:40px;height:40px;border:4px solid #ede9fe;border-top-color:#a78bfa;'
+    + 'border-radius:50%;animation:login-overlay-spin 0.8s linear infinite;';
+
+  var text = document.createElement('p');
+  text.textContent = '로그인하는 중이야...';
+  text.style.cssText = 'margin:16px 0 0;color:#7c5fe0;font-weight:700;font-size:1rem;';
+
+  overlay.appendChild(spinner);
+  overlay.appendChild(text);
+  document.body.appendChild(overlay);
+
+  if (overlayTimeoutId) clearTimeout(overlayTimeoutId);
+  overlayTimeoutId = setTimeout(function () {
+    overlayTimeoutId = null;
+    sessionStorage.removeItem(LOGIN_REDIRECTING_KEY);
+    hideLoginOverlay();
+  }, 10000);
+}
+
+function hideLoginOverlay() {
+  if (overlayTimeoutId) {
+    clearTimeout(overlayTimeoutId);
+    overlayTimeoutId = null;
+  }
+  var el = document.getElementById('login-overlay');
+  if (el) el.remove();
+}
 
 function ensureMenuDom() {
   if (!loginBtn || loginWrap) return;
@@ -93,6 +145,9 @@ async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
   const user = auth.currentUser;
 
+  sessionStorage.setItem(LOGIN_REDIRECTING_KEY, '1');
+  showLoginOverlay();
+
   try {
     if (user && user.isAnonymous) {
       await linkWithRedirect(user, provider);
@@ -146,12 +201,16 @@ function setupAuthStateListener() {
   onAuthStateChanged(auth, function (user) {
     if (user && !user.isAnonymous) {
       console.log('로그인 상태:', user.displayName || user.email);
+      sessionStorage.removeItem(LOGIN_REDIRECTING_KEY);
+      hideLoginOverlay();
       bindLoggedIn(user);
       if (!savedOnce) {
         savedOnce = true;
         saveResultFromUrl();
       }
     } else {
+      sessionStorage.removeItem(LOGIN_REDIRECTING_KEY);
+      hideLoginOverlay();
       if (user && user.isAnonymous) {
         console.log('익명 세션:', user.uid);
       } else {
@@ -192,6 +251,10 @@ async function handleRedirectResult() {
 document.addEventListener('DOMContentLoaded', async function () {
   loginBtn = document.querySelector('.play-login-btn');
   if (!loginBtn) return;
+
+  if (sessionStorage.getItem(LOGIN_REDIRECTING_KEY) === '1') {
+    showLoginOverlay();
+  }
 
   await handleRedirectResult();
   setupAuthStateListener();
