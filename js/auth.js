@@ -201,8 +201,12 @@ function setupAuthStateListener() {
   onAuthStateChanged(auth, function (user) {
     if (user && !user.isAnonymous) {
       console.log('로그인 상태:', user.displayName || user.email);
+      var justLoggedIn = sessionStorage.getItem(LOGIN_REDIRECTING_KEY) === '1';
       sessionStorage.removeItem(LOGIN_REDIRECTING_KEY);
       hideLoginOverlay();
+      if (justLoggedIn && typeof window.gtag === 'function') {
+        window.gtag('event', 'login', { method: 'google' });
+      }
       bindLoggedIn(user);
       if (!savedOnce) {
         savedOnce = true;

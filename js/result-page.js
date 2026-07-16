@@ -63,6 +63,13 @@ import { incrementCompleted } from '/js/participants.js';
 
     await saveResult('spending-type', { typeCode: typeCode, percent: percent });
     await incrementCompleted('spending-type');
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'test_complete', {
+        test_id: 'spending-type',
+        result_type: typeCode,
+        match_percent: percent
+      });
+    }
   }
 
   /* ── (A) 수집 카드 (티어별) ──────────────────── */
@@ -123,6 +130,12 @@ import { incrementCompleted } from '/js/participants.js';
           console.warn('Kakao SDK가 초기화되지 않았습니다.');
           return;
         }
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'share_click', {
+            test_id: 'spending-type',
+            method: 'kakao'
+          });
+        }
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
@@ -159,6 +172,12 @@ import { incrementCompleted } from '/js/participants.js';
     if (copyBtn) {
       var originalText = copyBtn.textContent;
       copyBtn.addEventListener('click', function () {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'share_click', {
+            test_id: 'spending-type',
+            method: 'link_copy'
+          });
+        }
         navigator.clipboard.writeText(location.href)
           .then(function () {
             copyBtn.textContent = '복사됨!';

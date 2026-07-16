@@ -246,6 +246,9 @@ document.addEventListener('DOMContentLoaded', function () {
     intro.hidden = true;
     questions.hidden = false;
     incrementParticipant('spending-type');
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'test_start', { test_id: 'spending-type' });
+    }
     updateProgress(currentIdx);
     renderQuestion(currentIdx);
   });
