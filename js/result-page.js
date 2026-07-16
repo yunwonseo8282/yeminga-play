@@ -8,11 +8,9 @@ import { incrementCompleted } from '/js/participants.js';
   var typeCode = params.get('type') || '';
   var percent  = params.get('p')    || '';
 
-  // 진입 경로 판별: 테스트 완료(세션) 또는 내 보관함(URL) 이면 본인 -> 버튼 숨김
-  var cameFromTest = sessionStorage.getItem('resultFrom') === 'test';
-  sessionStorage.removeItem('resultFrom'); // 한 번 쓰고 즉시 제거
-  var cameFromMy   = params.get('from') === 'my';
-  var isOwnerView  = cameFromTest || cameFromMy;
+  // 진입 경로 판별: 테스트 완료(from=test) 또는 내 보관함(from=my) 이면 본인 -> 버튼 숨김
+  var fromParam    = params.get('from');
+  var isOwnerView  = fromParam === 'test' || fromParam === 'my';
 
   var root     = document.getElementById('result-root');
   var cardRoot = document.getElementById('result-card-root');

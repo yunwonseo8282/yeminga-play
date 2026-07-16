@@ -234,9 +234,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var url = '/result/spending-type.html'
         + '?type=' + encodeURIComponent(typeCode)
-        + '&p='    + encodeURIComponent(matchPercent);
+        + '&p='    + encodeURIComponent(matchPercent)
+        + '&from=test';
 
-      sessionStorage.setItem('resultFrom', 'test');
       window.location.href = url;
     }, 1500);
   }
