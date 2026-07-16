@@ -7,6 +7,13 @@ import { incrementCompleted } from '/js/participants.js';
   var params   = new URLSearchParams(location.search);
   var typeCode = params.get('type') || '';
   var percent  = params.get('p')    || '';
+
+  // 진입 경로 판별: 테스트 완료(세션) 또는 내 보관함(URL) 이면 본인 -> 버튼 숨김
+  var cameFromTest = sessionStorage.getItem('resultFrom') === 'test';
+  sessionStorage.removeItem('resultFrom'); // 한 번 쓰고 즉시 제거
+  var cameFromMy   = params.get('from') === 'my';
+  var isOwnerView  = cameFromTest || cameFromMy;
+
   var root     = document.getElementById('result-root');
   var cardRoot = document.getElementById('result-card-root');
   var matchHint = document.querySelector('.result-match-hint');
@@ -111,10 +118,14 @@ import { incrementCompleted } from '/js/participants.js';
 
   /* ── (B) 공유 액션 버튼 ───────────────────────── */
   function buildActions() {
+    var goTestUrl = '/test/spending-type';
     return '<div class="result-actions">'
       + '<button type="button" class="btn btn--secondary btn--sm result-action-btn" id="rKakaoShareBtn">💬 카카오톡 공유</button>'
       + '<button type="button" class="btn btn--secondary btn--sm result-action-btn" id="rCopyLinkBtn">🔗 링크 복사</button>'
-      + '</div>';
+      + '</div>'
+      + '<a class="btn btn--primary btn--lg result-cta-btn"'
+      + (isOwnerView ? ' style="display:none"' : '')
+      + ' href="' + goTestUrl + '" id="rGoTestBtn">나는 무슨 유형일까?</a>';
   }
 
   function setupActions(data) {

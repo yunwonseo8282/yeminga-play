@@ -60,7 +60,8 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
     var base = RESULT_URLS[item.testId];
     if (!base) return '/';
     return base + '?type=' + encodeURIComponent(item.typeCode)
-      + '&p=' + encodeURIComponent(item.percent);
+      + '&p=' + encodeURIComponent(item.percent)
+      + '&from=my';
   }
 
   function renderEmpty() {

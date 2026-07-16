@@ -236,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
         + '?type=' + encodeURIComponent(typeCode)
         + '&p='    + encodeURIComponent(matchPercent);
 
+      sessionStorage.setItem('resultFrom', 'test');
       window.location.href = url;
     }, 1500);
   }
