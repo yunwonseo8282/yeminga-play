@@ -1,0 +1,8 @@
+# 임시 검증 스크립트
+scripts/
+distribution-test.js
+validate-out.json
+validate-out.txt
+
+# Wrangler 캐시
+.wrangler/

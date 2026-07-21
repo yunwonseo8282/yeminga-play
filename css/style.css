@@ -2471,3 +2471,8 @@ a:hover {
     font-size: var(--fs-3xl);
   }
 }
+
+.report-share-inline {
+  margin-top: 24px;
+  padding-top: 4px;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결과 - FC코드 우정 케미 테스트</title>
+  <meta name="description" content="나의 FC코드 우정 유형 결과를 확인하세요. 예밍아놀자 우정 케미 테스트.">
+  <!-- Open Graph (카카오/페이스북 등 링크 미리보기) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://test.yeminga.com/result/friendship-code.html">
+  <meta property="og:title" content="나는 무슨 우정 유형일까? 👀">
+  <meta property="og:description" content="딱 3분! 나는 32가지 우정 유형 중 어느 걸까? 나랑 찰떡인 친구까지 알려줄게">
+  <meta property="og:image" content="https://test.yeminga.com/images/intro-friendship-code.png">
+  <meta property="og:image:width" content="1670">
+  <meta property="og:image:height" content="941">
+  <meta property="og:site_name" content="예밍아놀자">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="나는 무슨 우정 유형일까? 👀">
+  <meta name="twitter:description" content="딱 3분! 나는 32가지 우정 유형 중 어느 걸까? 나랑 찰떡인 친구까지 알려줄게">
+  <meta name="twitter:image" content="https://test.yeminga.com/images/intro-friendship-code.png">
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Google Analytics (GA4) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RL7MBR191"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5RL7MBR191');
+  </script>
+</head>
+<body>
+  <header class="play-header" id="playHeader">
+    <div class="container">
+      <a class="play-brand" href="/">
+        <img class="brand-logo" src="/assets/logo.png" alt="예밍아놀자">
+        <span>예밍아놀자</span>
+      </a>
+      <button class="play-login-btn" type="button" disabled>로그인</button>
+    </div>
+  </header>
+
+  <main class="container-narrow section">
+    <div id="result-card-root">
+      <div class="test-loading">
+        <div class="test-loading-spinner"></div>
+        <p class="test-loading-text">결과를 불러오는 중…</p>
+      </div>
+    </div>
+    <p class="result-match-hint">💡 일치도가 높을수록 나랑 소름 돋게 똑같다는 뜻!</p>
+    <div id="result-root"></div>
+  </main>
+
+  <footer class="play-footer" id="playFooter"></footer>
+
+  <script type="module" src="/js/firebase-init.js"></script>
+  <script type="module" src="/js/auth.js"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.8.1/kakao.min.js" crossorigin="anonymous"></script>
+  <script src="/js/kakao-init.js" defer></script>
+  <script src="/js/header.js" defer></script>
+  <script type="module" src="/js/result-page-friendship-code.js"></script>
+  <script src="/js/footer.js"></script>
+</body>
+</html>

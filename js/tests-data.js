@@ -23,5 +23,16 @@ window.TESTS = [
     url: "/test/spending-type.html",
     introText: "딱 3분이면 돼\n행동경제학 기반으로 설계된 32가지 소비 유형 중\n네가 어디에 속하는지 알려줄게",
     introImage: "/images/intro-spending-type.png"
+  },
+  {
+    id: "friendship-code",
+    name: "FC코드 우정 케미 테스트",
+    thumbnail: "/images/thumb-friendship-code.png",
+    desc: "너의 우정엔 코드가 있어",
+    duration: "3분",
+    questionCount: "30문항",
+    url: "/test/friendship-code.html",
+    introText: "딱 3분이면 돼\n사회심리학 기반으로 설계된 32가지 우정 유형 중\n네가 어디에 속하는지 알려줄게",
+    introImage: "/images/intro-friendship-code.png"
   }
 ];
