@@ -2321,15 +2321,15 @@ a:hover {
 }
 
 .my-results-card-test {
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  color: var(--color-text-soft);
-}
-
-.my-results-card-type {
   font-size: var(--fs-xl);
   font-weight: 800;
   color: var(--color-text);
+}
+
+.my-results-card-type {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--color-text-soft);
 }
 
 .my-results-card-percent {
