@@ -22,6 +22,7 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
 
   var listEl = document.getElementById('myResultsList');
   var promptEl = document.getElementById('myResultsLoginPrompt');
+  var descEl = document.getElementById('myResultsDesc');
   var loginBtn = document.getElementById('myResultsLoginBtn');
 
   if (loginBtn) {
@@ -52,6 +53,7 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
   function showPrompt() {
     if (promptEl) promptEl.hidden = false;
     if (listEl) listEl.innerHTML = '';
+    if (descEl) descEl.hidden = true;
   }
 
   function hidePrompt() {
@@ -68,13 +70,13 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
 
   function renderEmpty() {
     if (!listEl) return;
+    if (descEl) descEl.hidden = true;
     listEl.innerHTML =
       '<div class="my-results-empty">'
       + '<p>아직 저장된 결과가 없어!</p>'
       + '<p class="my-results-empty-sub">테스트 하고 결과를 모아봐</p>'
       + '<div class="my-results-empty-actions">'
-      + '<a class="btn btn--primary btn--md" href="/test/spending-type.html">테스트 하러 가기</a>'
-      + '<a class="btn btn--secondary btn--md" href="/">메인으로</a>'
+      + '<a class="btn btn--primary btn--md" href="/">테스트 하러 가기</a>'
       + '</div>'
       + '</div>';
   }
@@ -85,6 +87,8 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
       renderEmpty();
       return;
     }
+
+    if (descEl) descEl.hidden = false;
 
     listEl.innerHTML = results.map(function (item) {
       var testName = TEST_NAMES[item.testId] || item.testId;
@@ -105,6 +109,7 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
     }
 
     hidePrompt();
+    if (descEl) descEl.hidden = true;
     if (listEl) {
       listEl.innerHTML =
         '<div class="test-loading">'
