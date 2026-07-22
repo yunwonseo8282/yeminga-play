@@ -124,7 +124,10 @@
   }
 
   function setupShare(data) {
-    var shareUrl = 'https://test.yeminga.com/test/friendship-code';
+    var shareUrl = 'https://test.yeminga.com/result/friendship-code.html?type='
+      + encodeURIComponent(typeCode) + '&p=' + encodeURIComponent(percent);
+    var testUrl = 'https://test.yeminga.com/test/friendship-code';
+    var imageUrl = 'https://test.yeminga.com/images/results/friendship-code/' + fileName + '.png';
     var kakaoBtn = document.getElementById('dKakaoShareBtn');
     if (kakaoBtn) {
       kakaoBtn.addEventListener('click', function () {
@@ -138,13 +141,14 @@
         Kakao.Share.sendDefault({
           objectType: 'feed',
           content: {
-            title: '나는 무슨 우정 유형일까? 👀',
-            description: '딱 3분! 32가지 우정 유형 중 나는 어디에 속할까? 나랑 찰떡인 친구까지 알려줄게',
-            imageUrl: 'https://test.yeminga.com/images/intro-friendship-code.png',
+            title: '나의 우정 유형은?',
+            description: data.nickname + ' (' + data.code + ')',
+            imageUrl: imageUrl,
             link: { mobileWebUrl: shareUrl, webUrl: shareUrl }
           },
           buttons: [
-            { title: '테스트 하러 가기', link: { mobileWebUrl: shareUrl, webUrl: shareUrl } }
+            { title: '친구 결과 보기', link: { mobileWebUrl: shareUrl, webUrl: shareUrl } },
+            { title: '나도 테스트하기', link: { mobileWebUrl: testUrl, webUrl: testUrl } }
           ]
         });
       });
