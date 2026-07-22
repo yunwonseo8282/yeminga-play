@@ -11,11 +11,13 @@ import { handleInAppBrowser } from '/js/inapp-browser.js';
   'use strict';
 
   var TEST_NAMES = {
-    'spending-type': 'MBUY 소비 유형 테스트'
+    'spending-type': 'MBUY 소비 유형 테스트',
+    'friendship-code': 'FC코드 우정 케미 테스트'
   };
 
   var RESULT_URLS = {
-    'spending-type': '/result/spending-type.html'
+    'spending-type': '/result/spending-type.html',
+    'friendship-code': '/result/friendship-code.html'
   };
 
   var listEl = document.getElementById('myResultsList');

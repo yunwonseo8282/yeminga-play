@@ -110,7 +110,16 @@ export async function saveResultFromUrl() {
     location.pathname.indexOf('/result/') !== -1 || params.has('type');
   if (!isResultPage || !typeCode) return;
 
-  const testId = 'spending-type';
+  const pathSegment = location.pathname.split('/').pop() || '';
+  const testId = pathSegment.replace(/\.html$/i, '');
+  if (!testId) return;
+
+  // 새 테스트 추가 시 KNOWN_TEST_IDS 에 슬러그를 등록할 것
+  const KNOWN_TEST_IDS = ['spending-type', 'friendship-code'];
+  if (!KNOWN_TEST_IDS.includes(testId)) {
+    console.warn('URL 결과 재저장 skip: 알 수 없는 testId', testId);
+    return;
+  }
 
   try {
     console.log('URL 결과 재저장 시작:', testId, typeCode, percent);
