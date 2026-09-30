@@ -71,6 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
   meta.className = 'test-intro-meta';
   meta.textContent = '약 ' + data.duration + ' · ' + data.questionCount;
 
+  var notice = document.createElement('p');
+  notice.className = 'test-intro-meta test-intro-notice';
+  notice.textContent = '예밍아놀자가 직접 만든 재미·자기이해 콘텐츠야. 검증된 전문 심리검사나 진단이 아니니 결과는 가볍게 참고해 줘.';
+
   var startBtn = document.createElement('button');
   startBtn.type = 'button';
   startBtn.className = 'btn btn--primary btn--lg test-intro-btn';
@@ -80,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
   intro.appendChild(heroImg);
   intro.appendChild(introText);
   intro.appendChild(meta);
+  intro.appendChild(notice);
   intro.appendChild(startBtn);
 
   // ── 진행바 + 뒤로가기 ───────────────────────────────────────
